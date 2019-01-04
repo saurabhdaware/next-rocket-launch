@@ -2,6 +2,9 @@ const menuItems = document.querySelectorAll('nav > .menu > a');
 const cover = document.querySelector('.cover');
 const launchContainer = document.getElementById('launches');
 const searchbox = document.getElementById('search');
+const modalTitle = document.querySelector('.modal-title');
+const modalContent = document.querySelector('.modal-content');
+const modalContainer = document.querySelector('.modal-container');
 
 const isLogoAvailable = (abbr) => {return abbr == 'spx' || abbr == 'isro' || abbr == 'rl' || abbr == 'asa' || abbr == 'ula';}
 const isBgAvailable = (shortname) => {
@@ -12,6 +15,7 @@ const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov
 
 let lsp = [];
 var launches = [];
+let loadMoreClicked = false;
 
 function isMobile(){
     var check = false;
@@ -59,7 +63,6 @@ function getLogo(lsp){
 
 function getRocketBg(rocket){
     let shortName = rocket.name.replace(/ /g,'').toLowerCase();
-    console.log(shortName);
     if(isBgAvailable(shortName)){
         // console.log(shortName);
         return `assets/rockets/${shortName}.jpg`;
@@ -73,7 +76,7 @@ function getRocketBgPosition(rocketname){
     let trimmedName = rocketname.replace(/ /g,'').toLowerCase();
     if(trimmedName == 'electron'){
         return 'top right'
-    }else if(trimmedName == 'pslv' || trimmedName == 'gslvmkiii' || trimmedName == 'ariane5eca'){
+    }else if(trimmedName == 'pslv' || trimmedName == 'gslvmkiii' || trimmedName == 'ariane5eca' || trimmedName == 'soyuzstb/fregat'){
         return 'center';
     }else if(trimmedName == 'falconheavy'){
         return 'center left';
@@ -83,6 +86,10 @@ function getRocketBgPosition(rocketname){
 }
 
 function createLaunchCard(info){
+    if(info.length == 0){
+        launchContainer.innerHTML = 'Ops! could not find any rocket/mission/launch with those keywords in it. :( '
+        return;
+    }
     launchContainer.innerHTML = '';
     for(let i in info){
         let eventName = encodeURI(info[i].name + ' Launch!');
@@ -108,30 +115,57 @@ function createLaunchCard(info){
                 ${getLogo(info[i].lsp)}
                 <div class="w3-display-middle white-text w3-large launch-date">
                     ${prettifyDate(info[i].net,{tbdtime:info[i].tbdtime,tbddate:info[i].tbddate})}
-                    <br><small> ${(i==0)?'4 DAYS 2 HOUR 23 MINUTES 12 SECONDS':''}</small>
                 </div>
-                <div class="w3-display-bottomleft launch-buttons-container"><a target="_blank" href="${googleCalendarUrl}" class="btn1">Add to Calender</a> <a href="#" class="btn1">About Mission</a></div>
+                <div class="w3-display-bottomleft launch-buttons-container">
+                    <a target="_blank" href="${googleCalendarUrl}" class="btn1">Add to Calender</a> 
+                    ${(info[i].missions.length > 0)?`<a style="cursor:pointer;" onclick="openModal(\`${encodeURI(JSON.stringify(info[i].missions[0]))}\`)" class="btn1">About Mission</a>`:''}
+                </div>
                 ${(info[i].vidURLs[0])?`<div class="w3-display-topright hide-mobile launch-live-link"><a target="_blank" href="${info[i].vidURLs[0]}">${info[i].vidURLs[0].split('//')[1]}</a></div>`:''}
             </div>
         </div>
 
         `
+
+        if(i>15 && !loadMoreClicked){
+            launchContainer.innerHTML += `<div style="text-align:center;"><a onclick="loadMoreClicked = true;createLaunchCard(launches)" style="width:200px;color:#fff;background-color:#09f;" class="w3-btn loadmore-button">Load More</a></div>`;
+            break;
+        };
     }
 }
-// var text = encodeURIComponent('Housters To-Do Due: ' + self.task());
-// var startDate = moment(self.dueDate()).format('YYYYMMDD');
-//     var endDate = moment(self.dueDate()).add('days', 1).format('YYYYMMDD');
-//     var details = encodeURIComponent(self.task());
-//     var location = encodeURIComponent(self.propertyName());
-//     var googleCalendarUrl = 'http://www.google.com/calendar/event?action=TEMPLATE&text=' + text + '&dates=' + startDate + '/' + endDate + '&details=' + details + '&location=' + location;
+
+function openModal(mission){
+    // payloads = JSON.parse(payloads);
+    mission = JSON.parse(decodeURI(mission));
+    modalTitle.innerHTML = mission.name;
+    modalContent.innerHTML = mission.description;
+    modalContent.innerHTML += (mission.payloads.length > 0)?'<br><br><b>Payloads: </b>':'';
+    for(let payload of mission.payloads){
+        modalContent.innerHTML+=
+        `
+        <br> - ${payload.name}
+        `
+    }
+    modalContent.innerHTML += (mission.wikiURL)?`<br><br><b>Wikipedia:</b><br><a style="color:#09f;" href="${mission.wikiURL}">${mission.wikiURL}</a>`:'';
+    modalContainer.classList.add('active');
+}
+
+function closeModal(){
+    modalContainer.classList.remove('active');
+}
+
+let typingTimer;
 function searchUpdateHandler(){
-    if(searchbox.value.length < 2) createLaunchCard(launches);
-    let val = searchbox.value.toLowerCase().replace(/ /g,'');
-    let val2 = searchbox.value.toLowerCase();
-    let result = launches.filter(launch=>{
-        return launch.name.toLowerCase().includes(val) || launch.lsp.name.toLowerCase().includes(val) || launch.lsp.abbrev.toLowerCase().includes(val) || launch.rocket.name.toLowerCase().includes(val) || launch.name.toLowerCase().includes(val2) || launch.lsp.name.toLowerCase().includes(val2) || launch.lsp.abbrev.toLowerCase().includes(val2) || launch.rocket.name.toLowerCase().includes(val2)
-    });
-    createLaunchCard(result);
+    clearTimeout(typingTimer);
+    typingTimer = setTimeout(()=>{
+        loadMoreClicked = false;
+        if(!searchbox.value){ createLaunchCard(launches); return;}
+        let val = searchbox.value.toLowerCase().replace(/ /g,'');
+        let val2 = searchbox.value.toLowerCase();
+        let result = launches.filter(launch=>{
+            return launch.name.toLowerCase().includes(val) || launch.lsp.name.toLowerCase().includes(val) || launch.lsp.abbrev.toLowerCase().includes(val) || launch.rocket.name.toLowerCase().replace(/ /g,'').includes(val) || launch.name.toLowerCase().includes(val2) || launch.lsp.name.toLowerCase().includes(val2) || launch.lsp.abbrev.toLowerCase().includes(val2) || launch.rocket.name.toLowerCase().includes(val2)
+        });
+        createLaunchCard(result);
+    }, 300);
 }
 
 getAgencies(0)
