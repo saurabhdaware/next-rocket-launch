@@ -30,93 +30,7 @@
     <link href="https://fonts.googleapis.com/css?family=Electrolize" rel="stylesheet">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3pro.css">
     <title>Next Launch || Upcoming Rocket Launch of ISRO, SPACEX, NASA, ROCKETLAB ,etc..</title>
-    <style>
-        html,body{
-            margin:0px;padding:0px;
-            background-color: #111;
-            font-family:'Electrolize',cursive;
-            color:#777;
-        }
-        ::-webkit-scrollbar{
-            width:1px;
-        }
-        ::-webkit-scrollbar-thumb{
-            background-color: #ff6;
-        }
-        a{
-            text-decoration:none;
-            outline:none;
-        }
-        .github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}
-
-        .cover{
-            background:url('assets/coverblur.jpg');
-            background-size:cover;
-            background-position:top;
-            height:500px;
-            width:100%;
-            position:relative;
-        }
-        .cover.loaded{
-            background:url('assets/cover.jpg');
-            transition:all .5s ease;
-            background-size:cover;
-            background-position:top;
-        }
-        .overlay{
-            position:absolute;
-            top:0;left:0;
-            height:100%;
-            width:100%;
-            background-color:#000;
-            opacity: .2;
-        }
-        .white-text{
-            color:#fff;
-        }
-        .content{
-            padding:100px;
-        }
-        nav{
-            position:absolute;
-            width:100%;
-            top:0;left:0;
-            display:flex;
-            color:#fff;
-            padding:20px;
-            font-size:13pt;
-        }
-        nav > .brand{
-            font-weight:bold;
-            flex:5;
-        }
-        nav > .menu{
-            flex:2;
-            display:flex;
-            align-items: flex-end;
-            flex-direction: row;
-            justify-content:space-around;
-            padding-right:40px;
-        }       
-        nav > .menu > a.active{
-            color:#ff6;
-        }
-        nav > .menu > a:hover{
-            color:#ff6;
-            transition:all .5s ease;
-        }
-        @media (max-width:768px){
-            .about{
-                width:90%;
-            }
-            .hide-mobile{
-                display:none !important;
-            }
-            .content{
-                padding:40px;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
   </head>
   <body>
     <div class="overall-container">     
@@ -131,15 +45,19 @@
             <input class="w3-input" type="search" id="search">
             <br><br>
             <span id="launches">
-                <div class="launch w3-card-4 w3-display-container">
-                    <span class="w3-display-topleft launch-name">Falcon 9 | Iridium 10</span>
+                <div class="launch">
+                    <span class="launch-name white-text">Falcon 9 Block 5 | Iridium-8</span>
+                    <div class="launch-container w3-card-4 w3-display-container">
+                        <div class="overlay" style="opacity:.5;"></div>
+                        <img class="w3-display-topleft" style="background-color:#fff;padding:5px;" width=100 src="assets/logos/spx.png">
+                        <div class="w3-display-middle white-text w3-large launch-date">8 Jan, 2019 - 9:18 AM  (Assia/Calcutta)<br><small> 4 DAYS 2 HOUR 23 MINUTES 12 SECONDS</small></div>
+                        <div class="w3-display-bottomleft launch-buttons-container"><a href="#" class="btn1">Add to Calender</a> <a href="#" class="btn1">About Mission</a></div>
+                        <div class="w3-display-topright launch-live-link"><a target="_blank" href="https://www.spacex.com/webcast">www.spacex.com/webcast</a></div>
+                    </div>
                 </div>
             </span>
         </div>
     </div>
-
-
-    
     <!-- Navbar -->
     <nav>
         <div class="brand">NextLaunch <span class="fa fa-rocket"></span></div>
@@ -152,59 +70,7 @@
     <a href="https://github.com/saurabhdaware/next-rocket-launch" target="_blank" class="github-corner" aria-label="View source on GitHub">
         <svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg>
     </a>
-    <script>
-        const menuItems = document.querySelectorAll('nav > .menu > a');
-        const cover = document.querySelector('.cover');
-        // menuItems[0].classList.add('active');
-        let lsp = [];
-
-        var launches = [];
-        function coverLoaded(){
-            cover.classList.add('loaded');
-        }
-        let hdImage = new Image();
-        hdImage.src = 'assets/cover.jpg';
-        hdImage.addEventListener('load',coverLoaded,false)
-
-        async function getAgencies(offset=0){
-            let data = await fetch(`https://launchlibrary.net/1.4/lsp?offset=${offset}`);
-            return (await data.json()).agencies;
-        }
-
-        getAgencies(0)
-            .then((data)=>{
-                lsp.push(...data);
-                return 30;
-            })
-            .then(getAgencies)
-            .then((data)=>{
-                lsp.push(...data);
-            })
-
-        getNextLaunches()
-            .then((data)=>{
-                launches = data.launches;
-                console.log(launches);
-            });
-
-        async function getNextLaunches(){
-            let data = await fetch('https://launchlibrary.net/1.4/launch?next=50&mode=verbose');
-            return await data.json();
-        }
-
-
-
-
-
-
-        // A well written code that turned out to be useless since I found easier way of doing it but since I spent lot of time on this code so dont want to just delete it  :'( 
-        // so here's to a useless peice of art(shit)
-         // let lspids = Array.from(new Set(launches.map(launch=>{return launch.lsp})));
-                // for(let id of lspids){
-                //     lsp[id] = await (await fetch(`https://launchlibrary.net/1.4/agency/${id}`)).json();
-                // }
-                // console.log(lsp);
-    </script>
+    <script src="index.js"></script>
   </body>
 
 </html>
