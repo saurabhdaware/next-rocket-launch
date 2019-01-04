@@ -1,0 +1,130 @@
+html,body{
+    margin:0px;padding:0px;
+    background-color: #111;
+    font-family:'Electrolize',cursive;
+    color:#777;
+}
+::-webkit-scrollbar{
+    width:1px;
+}
+::-webkit-scrollbar-thumb{
+    background-color: #ff6;
+}
+a{
+    text-decoration:none;
+    outline:none;
+}
+.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}
+
+.cover{
+    background:url('assets/coverblur.jpg');
+    background-size:cover;
+    background-position:top;
+    height:500px;
+    width:100%;
+    position:relative;
+}
+.cover.loaded{
+    background:url('assets/cover.jpg');
+    transition:all .5s ease;
+    background-size:cover;
+    background-position:top;
+}
+.overlay{
+    position:absolute;
+    top:0;left:0;
+    height:100%;
+    width:100%;
+    background-color:#000;
+    opacity: .2;
+}
+.white-text{
+    color:#fff;
+}
+.bg-opacity-black{
+    background:rgba(0,0,0,.4);
+    color:#fff;
+}
+.launch-container{
+    height:350px;
+    width:100%;
+    background-color: #000;
+    /* background:url('assets/rockets/falcon9.png'); */
+    position:relative;
+}
+.launch-name{
+    padding:0px 0px;
+    font-size:16pt;
+}
+.launch-buttons-container{
+    padding:10px;
+    color:#fff;
+    font-weight:bold;
+}
+.launch-buttons-container > *{
+    margin:5px;
+}
+.launch-date{
+    text-align:center;
+}
+.launch-live-link{
+    color:#ff6;
+    padding:5px 10px;
+}
+.launch{
+    margin-bottom:120px;
+}
+.content{
+    padding:100px;
+}
+.show-mobile{
+    display:none;
+}
+nav{
+    position:absolute;
+    width:100%;
+    top:0;left:0;
+    display:flex;
+    color:#fff;
+    padding:20px;
+    font-size:13pt;
+}
+nav > .brand{
+    font-weight:bold;
+    flex:5;
+}
+nav > .menu{
+    flex:2;
+    display:flex;
+    align-items: flex-end;
+    flex-direction: row;
+    justify-content:space-around;
+    padding-right:40px;
+}       
+nav > .menu > a.active{
+    color:#ff6;
+}
+nav > .menu > a:hover{
+    color:#ff6;
+    transition:all .5s ease;
+}
+@media (max-width:768px){
+    .about,.launch-date{
+        width:90%;
+    }
+    .launch-date{
+        font-size:12pt !important;
+    }
+    .launch-live-link{
+        padding:0px 0px 7px 0px;
+    }
+    .hide-mobile{
+        display:none !important;
+    }
+    .show-mobile{
+        display:block;
+    }
+    .content{
+        padding:40px;
+    }
+}
