@@ -31,7 +31,10 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3pro.css">
     <title>Next Launch || Upcoming Rocket Launch of ISRO, SPACEX, NASA, ROCKETLAB ,etc..</title>
     <link rel="stylesheet" href="style.css">
-  </head>
+  
+    <link rel="manifest" href="manifest.json">
+    
+</head>
   <body>
     <div class="overall-container">     
         <div class="cover w3-display-container">
@@ -44,7 +47,7 @@
             <label for="search">Search for a Space Agency or a Rocket : </label>
             <div style="display:flex;" class="w3-card-4">
                 <input style="flex:1;" class="w3-input" type="search" id="search">
-                <a href="#" style="float:right;padding:10px" class="search-button w3-btn"><span class="fa fa-search"></span></a><!-- This button doesnt really do anything, this is solely for the fingerry click satisfaction of the user-->
+                <a href="#" style="float:right;padding:10px" class="search-button w3-btn"><span class="fa fa-search"></span></a><!-- This button doesnt really do anything, this is only for the fingerry click satisfaction of the user -->
             </div>
             <br><br>
             <span id="launches">
@@ -99,6 +102,23 @@
         <!-- <br><br><button class="close2-button w3-btn">Close</button> -->
     </div>
     <script src="index.js"></script>
-  </body>
+  
+
+<script>
+// ServiceWorker Registration
+if('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+        navigator.serviceWorker.register('sw.js').then(function(registration) {
+            // Registration was successful
+            console.log('ServiceWorker registration successful with scope: ', registration.scope);
+        }, function(err) {
+            // registration failed :(
+            console.log('ServiceWorker registration failed: ', err);
+        });
+    });
+}
+</script>
+
+</body>
 
 </html>
