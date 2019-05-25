@@ -2,7 +2,7 @@
 var CACHE_NAME = 'version-1';
 // Put all your urls that you want to cache in this array
 var urlsToCache = [
-    '/',
+    'index.html',
     'assets/logo-192.png',
     'assets/cover.jpg',
     'assets/coverblur.jpg',
