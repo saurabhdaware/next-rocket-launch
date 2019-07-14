@@ -1,5 +1,5 @@
 
-var CACHE_NAME = 'version-3';
+var CACHE_NAME = 'version-4';
 // Put all your urls that you want to cache in this array
 var urlsToCache = [
     'index.html',
